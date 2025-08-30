@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Recipe Finder</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #0b1020, #1c2333);
+      color: #f0f4ff;
+    }
+    header {
+      text-align: center;
+      font-size: 2.2rem;
+      font-weight: 700;
+      padding: 1.5rem;
+      background-color: rgba(20, 26, 47, 0.9);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    input {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      outline: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background-color: #141a2f;
+      border-radius: 16px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.7);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 1rem;
+      flex-grow: 1;
+    }
+    .card-content h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.3rem;
+      color: #ffffff;
+    }
+    .card-content p {
+      margin: 0;
+      color: #9fa9c5;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <header>Smart Recipe Finder</header>
+  <div class="container">
+    <input type="text" id="search" placeholder="Type an ingredient (e.g., chicken)">
+    <div id="recipeGrid" class="grid"></div>
+  </div>
+
+  <script>
+    const recipes = [
+      { name: "Chicken Curry", ingredients: ["chicken", "onion", "spices"], img: "Chicken-Curry-recipe.jpg" },
+      { name: "Butter Chicken", ingredients: ["chicken", "cream", "butter"], img: "butter.jpg" },
+      { name: "Vegetable Salad", ingredients: ["lettuce", "tomato", "cucumber"], img:"veg.jpg" },
+      { name: "Pancakes", ingredients: ["flour", "milk", "egg"], img: "pancake.jpg" },
+      { name: "Chocolate Cake", ingredients: ["chocolate", "flour", "sugar"], img: "choco.jpg" },
+      { name: "Fruit Smoothie", ingredients: ["banana", "berries", "milk"], img: "fruit.jpg" },
+      { name: "Pasta Alfredo", ingredients: ["pasta", "cream", "garlic"], img: "pasta.jpg" },
+      { name: "Tomato Soup", ingredients: ["tomato", "garlic", "butter"], img: "tomato.jpg" },
+      { name: "Paneer Tikka", ingredients: ["paneer", "spices", "capsicum"], img: "panneer.jpg" },
+      { name: "Biryani", ingredients: ["rice", "chicken", "spices"], img: "briyani.jpg" }
+    ];
+
+    const recipeGrid = document.getElementById("recipeGrid");
+    const searchInput = document.getElementById("search");
+
+    function displayRecipes(recipesToShow) {
+      recipeGrid.innerHTML = "";
+      recipesToShow.forEach(recipe => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${recipe.img}" alt="${recipe.name}">
+          <div class="card-content">
+            <h3>${recipe.name}</h3>
+            <p>${recipe.ingredients.join(", ")}</p>
+          </div>
+        `;
+        recipeGrid.appendChild(card);
+      });
+    }
+
+    searchInput.addEventListener("input", () => {
+      const term = searchInput.value.toLowerCase();
+      const filtered = recipes.filter(r =>
+        r.ingredients.some(i => i.toLowerCase().includes(term))
+      );
+      displayRecipes(filtered);
+    });
+
+    displayRecipes(recipes);
+  </script>
+</body>
+</html>
