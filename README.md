@@ -7,7 +7,7 @@ Built entirely with **HTML5, CSS3, and Vanilla JavaScript** — no frameworks us
 
 ## 🚀 Demo Video
 
-[▶ Watch the demo video](screen_capture.webm)
+[▶ Watch the demo video](screen-capture.webm)
 
 *(Open the link to view the screen capture of the app in action.)*
 
